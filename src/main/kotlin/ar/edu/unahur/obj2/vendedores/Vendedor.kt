@@ -62,7 +62,8 @@ class ComercioCorresponsal(val ciudadesConSucursales : List<Ciudad> ) : Vendedor
 /* 1st Try
 class Certificacion(val esDeProducto: Boolean, val puntaje: Int)
 
-abstract class Vendedor {
+abstract class Vendedor { //abstract: No tiene implementacion, solo declaracion.
+
   // Acá es obligatorio poner el tipo de la lista, porque como está vacía no lo puede inferir.
   // Además, a una MutableList se le pueden agregar elementos
   val certificaciones = mutableListOf<Certificacion>()
@@ -93,7 +94,7 @@ abstract class Vendedor {
 }
 
 // En los parámetros, es obligatorio poner el tipo
-class VendedorFijo(val ciudadOrigen: Ciudad) : Vendedor() {
+class VendedorFijo(val ciudadOrigen: Ciudad) : Vendedor() { // ":" == "Inherits"
   override fun puedeTrabajarEn(ciudad: Ciudad): Boolean {
     return ciudad == ciudadOrigen
   }
