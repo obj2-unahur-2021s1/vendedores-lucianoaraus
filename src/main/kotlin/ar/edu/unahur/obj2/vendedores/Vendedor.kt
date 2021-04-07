@@ -51,4 +51,4 @@ class ComercioCorresponsal(val ciudades: List<Ciudad>) : Vendedor() {
   }
 }
 
-//Esta es una prueba
+//Esta es una prueba 2
