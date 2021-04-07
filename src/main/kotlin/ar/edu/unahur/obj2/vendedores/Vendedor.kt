@@ -15,8 +15,8 @@ abstract class Vendedor { //abstract: No tiene implementacion, solo declaracion.
   // En las funciones declaradas con = no es necesario explicitar el tipo
   fun esVersatil() =
     certificaciones.size >= 3
-    && this.certificacionesDeProducto() >= 1
-    && this.otrasCertificaciones() >= 1
+      && this.certificacionesDeProducto() >= 1
+      && this.otrasCertificaciones() >= 1
 
   // Si el tipo no está declarado y la función no devuelve nada, se asume Unit (es decir, vacío)
   fun agregarCertificacion(certificacion: Certificacion) {
@@ -28,7 +28,7 @@ abstract class Vendedor { //abstract: No tiene implementacion, solo declaracion.
   fun certificacionesDeProducto() = certificaciones.count { it.esDeProducto }
   fun otrasCertificaciones() = certificaciones.count { !it.esDeProducto }
 
-  fun puntajeCertificaciones() = certificaciones.sumBy { it.puntaje }
+  fun puntajeCertificaciones() = certificaciones.sumBy { c -> c.puntaje }
 }
 
 // En los parámetros, es obligatorio poner el tipo
@@ -43,9 +43,6 @@ class Viajante(val provinciasHabilitadas: List<Provincia>) : Vendedor() {
   override fun puedeTrabajarEn(ciudad: Ciudad): Boolean {
     return provinciasHabilitadas.contains(ciudad.provincia)
   }
-  fun esInfluyente() = provinciasHabilitadas.sumBy { this.poblacion() } >= 10000000
-  fun afinidadAlCentro(centro : Ciudad) = it.puedeTrabajar(centro.ciudad())
-  fun esCandidato(centro : Ciudad) = super(centro) && it.afinidadAlCentro(centro)//Reemplazar SUPER
 }
 
 class ComercioCorresponsal(val ciudades: List<Ciudad>) : Vendedor() {
@@ -53,5 +50,3 @@ class ComercioCorresponsal(val ciudades: List<Ciudad>) : Vendedor() {
     return ciudades.contains(ciudad)
   }
 }
-
-//Esta es una prueba 3
