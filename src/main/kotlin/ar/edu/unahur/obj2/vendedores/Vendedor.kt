@@ -50,3 +50,5 @@ class ComercioCorresponsal(val ciudades: List<Ciudad>) : Vendedor() {
     return ciudades.contains(ciudad)
   }
 }
+
+//Esta es una prueba
