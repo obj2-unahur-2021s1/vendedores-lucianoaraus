@@ -4,49 +4,90 @@ import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
 
-class comercioCorresponsal : DescribeSpec({
-
-  //Sucursal #1
+class VendedorTest : DescribeSpec({
   val misiones = Provincia(1300000)
+  val rioDeJaneiro = Provincia(10000000)
+  val ohio = Provincia(11690000)
   val sanIgnacio = Ciudad(misiones)
+  val rio = Ciudad(rioDeJaneiro)
 
-  describe("Vendedor Fijo"){
-      val obera = Ciudad(provincia = misiones)
-      val vendedorFijo = Ciudad(ciudadDeResidencia = obera)
+  describe("Vendedor Fijo") {
+    val obera = Ciudad(misiones)
+    val vendedorFijo = VendedorFijo(obera)
 
+    describe("puedeTrabajar") {
       it("puedeTrabajar en su ciudad de origen") {
-          vendedorFijo.puedeTrabajarEn(obera).shouldBeTrue()
+        vendedorFijo.puedeTrabajarEn(obera).shouldBeTrue()
       }
+      it("otra ciudad") {
+        vendedorFijo.puedeTrabajarEn(sanIgnacio).shouldBeFalse()
+      }
+    }
+    describe("esInfluyente") {
+      it("No es influyente") {
+        vendedorFijo.esInfluyente().shouldBeFalse()
+      }
+    }
   }
 
-/*Vendedores viejo POO 1
-  assert.that(comercioCorresponsal1.esInfluyente())
+  describe("Viajante") {
+    val cordoba = Provincia(2000000)
+    val villaDolores = Ciudad(cordoba)
+    val viajante = Viajante(listOf(misiones))
 
-  //Sucursal #2
-  val santaFe = new Provincia(poblacion = 3000000)
-  val cordoba = new Provincia(poblacion = 3000000)
-  val entreRios = new Provincia(poblacion = 3000000)
+    val viajanteBrasilero = Viajante(listOf(rioDeJaneiro))
 
-  val rosario = new Ciudad(provincia = santaFe)
-  val rafaela = new Ciudad(provincia = santaFe)
-  val sanFrancisco = new Ciudad(provincia = cordoba)
-  val diamante = new Ciudad(provincia = entreRios)
+    describe("puedeTrabajarEn") {
+      it("una ciudad que pertenece a una provincia habilitada") {
+        viajante.puedeTrabajarEn(sanIgnacio).shouldBeTrue()
+      }
+      it("una ciudad que no pertenece a una provincia habilitada") {
+        viajante.puedeTrabajarEn(villaDolores).shouldBeFalse()
+      }
+    }
+    describe("esInfluyente") {
+      it("La poblacion debe ser >= a 10.000.000") {
+        viajanteBrasilero.esInfluyente().shouldBeTrue()
+      }
+      it("La poblacion debe ser >= a 10.000.000") {
+        viajante.esInfluyente().shouldBeFalse()
+      }
+    }
+  }
 
-  val comercioCorresponsal2 = new ComercioCorresponsal(certificaciones = [], ciudadesConSucursales = [rosario, rafaela, sanFrancisco, diamante])
+  describe("Comercio Corresponsal") {
+    val buenosAires = Provincia(1500000)
+    val caballito = Ciudad(buenosAires)
+    val torcuato = Ciudad(rioDeJaneiro)
+    val castelar = Ciudad(ohio)
+    val moron = Ciudad(buenosAires)
+    val comercioCorresponsal = ComercioCorresponsal(listOf(sanIgnacio, caballito, torcuato, castelar, moron))
+    val comercioCorresponsal2 = ComercioCorresponsal(listOf(sanIgnacio, torcuato, castelar))
+    val comercioCorresponsal3 = ComercioCorresponsal(listOf(sanIgnacio, caballito, torcuato))
 
-  assert.that(comercioCorresponsal2.esInfluyente())
-
-  //Sucursal #3
-  val amstrong = new Ciudad(provincia = santaFe)
-
-  val comercioCorresponsal3 = new ComercioCorresponsal(certificaciones = [], ciudadesConSucursales = [rosario, rafaela, amstrong, diamante])
-
-  assert.notThat(comercioCorresponsal3.esInfluyente())
-
+    describe("puedeTrabajarEn") {
+      it("Una ciudad que pertenece a las ciudades habilitadas") {
+        comercioCorresponsal.puedeTrabajarEn(sanIgnacio).shouldBeTrue()
+      }
+      it("Una ciudad que NO pertenece a las ciudades habilitadas") {
+        comercioCorresponsal.puedeTrabajarEn(caballito).shouldBeFalse()
+      }
+    }
+    describe("esInfluyente") {
+      it("Tiene 5 o mas sucursales") {
+        comercioCorresponsal.esInfluyente().shouldBeTrue()
+      }
+      it("Tiene sucursales en al menos 3 provincias") {
+        comercioCorresponsal2.esInfluyente().shouldBeTrue()
+      }
+      it("No tiene 5 o mas sucursales") {
+        comercioCorresponsal3.esInfluyente().shouldBeFalse()
+      }
+    }
+  }
 })
-*/
 
-//Estructura del test
+/*Estructura del test
 class MyTests : DescribeSpec({
   describe("score") {
     it("start as zero") {
@@ -67,40 +108,5 @@ class MyTests : DescribeSpec({
       }
     }
   }
-})
+})*/
 
-/* Codigo del ejercicio
-class VendedorTest : DescribeSpec({
-  val misiones = Provincia(1300000)
-  val sanIgnacio = Ciudad(misiones)
-
-  describe("Vendedor fijo") {
-    val obera = Ciudad(misiones)
-    val vendedorFijo = VendedorFijo(obera)
-
-    describe("puedeTrabajarEn") {
-      it("su ciudad de origen") {
-        vendedorFijo.puedeTrabajarEn(obera).shouldBeTrue()
-      }
-      it("otra ciudad") {
-        vendedorFijo.puedeTrabajarEn(sanIgnacio).shouldBeFalse()
-      }
-    }
-  }
-
-  describe("Viajante") {
-    val cordoba = Provincia(2000000)
-    val villaDolores = Ciudad(cordoba)
-    val viajante = Viajante(listOf(misiones))
-
-    describe("puedeTrabajarEn") {
-      it("una ciudad que pertenece a una provincia habilitada") {
-        viajante.puedeTrabajarEn(sanIgnacio).shouldBeTrue()
-      }
-      it("una ciudad que no pertenece a una provincia habilitada") {
-        viajante.puedeTrabajarEn(villaDolores).shouldBeFalse()
-      }
-    }
-  }
-})
-*/

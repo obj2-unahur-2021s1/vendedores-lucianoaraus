@@ -20,7 +20,7 @@ abstract class Vendedor {//abstract: No tiene implementacion, solo declaracion.
     && this.otrasCertificaciones() >= 1
 
   // Si el tipo no está declarado y la función no devuelve nada, se asume Unit (es decir, vacío)
-  fun agregarCertificacion(certificacion: Certificacion) {
+  fun agregarCertificacion(certificacion: Certificacion) { //No devuelve nada
     certificaciones.add(certificacion)
   }
 
@@ -31,8 +31,8 @@ abstract class Vendedor {//abstract: No tiene implementacion, solo declaracion.
 
   fun puntajeCertificaciones() = certificaciones.sumBy { c -> c.puntaje }
 
-
   abstract fun esInfluyente(): Boolean // ETAPA 2
+  fun esGenerico() = certificaciones.any { it.esDeProducto } //ETAPA 3
 }
 
 // En los parámetros, es obligatorio poner el tipo
@@ -49,6 +49,8 @@ class Viajante(val provinciasHabilitadas: List<Provincia>) : Vendedor() {
 
 class ComercioCorresponsal(val ciudades: List<Ciudad>) : Vendedor() {
   override fun puedeTrabajarEn(ciudad: Ciudad): Boolean = ciudades.contains(ciudad)
-  override fun esInfluyente() = ciudades.size >= 5 || ciudades.map({ it.provincia }).toSet().size >= 3 // ETAPA 2
+  override fun esInfluyente() = ciudades.size >= 5 ||  this.conjuntoProvinciasCantidad() >= 3 // ETAPA 2
+
+  fun conjuntoProvinciasCantidad() = ciudades.map { it.provincia }.toSet().size
 }
 
