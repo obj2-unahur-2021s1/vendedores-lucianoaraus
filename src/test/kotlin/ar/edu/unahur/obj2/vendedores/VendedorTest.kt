@@ -85,19 +85,33 @@ class VendedorTest : DescribeSpec({
       }
     }
     //ETAPA 1
-    describe("esVersatil"){
+    describe("esVersatil"){ //que tenga al menos tres certificaciones, que tenga al menos una sobre productos, y al menos una que no sea sobre productos.
+      vendedorFijo.agregarCertificacion(certificacionProducto)
+      vendedorFijo.agregarCertificacion(certificacionNoProducto)
+      vendedorFijo.agregarCertificacion(certificacionNoProducto)
+      
       it("tiene al menos 1 certificacion de productos, otra que no es de productos, y otra mas"){
-        viajante.esVersatil().shouldBeTrue()
+        vendedorFijo.esVersatil().shouldBeTrue()
       }
-    } //que tenga al menos tres certificaciones, que tenga al menos una sobre productos, y al menos una que no sea sobre productos.
-    
+      it("No tiene certificaciones"){
+        vendedorFijo.esVersatil().shouldBeFalse()
+      }
+    }
+
     //ETAPA 1
-    describe("esFirme"){
+    describe("esFirme"){//La condición es que el puntaje total que le otorgan sus certificaciones sea mayor o igual a 30.
+      vendedorFijo.agregarCertificacion(certificacionProducto)
+      vendedorFijo.agregarCertificacion(certificacionProducto)
+      vendedorFijo.agregarCertificacion(certificacionNoProducto)
+      vendedorFijo.agregarCertificacion(certificacionNoProducto)
       it("tiene un puntaje en certificaciones igual o mayor a 30"){
-        viajante.esFirme().shouldBeFalse()
+        vendedorFijo.esFirme().shouldBeTrue()
       }
-    } //La condición es que el puntaje total que le otorgan sus certificaciones sea mayor o igual a 30.
-    
+      it("No tiene un puntaje en certificaciones igual o mayor a 30"){
+        vendedorFijo.esFirme().shouldBeFalse()
+      }
+     
+    } 
     //ETAPA 2
     describe("esInfluyente") {
       it("La poblacion debe ser >= a 10.000.000") {
@@ -129,18 +143,32 @@ class VendedorTest : DescribeSpec({
       }
     }
     //ETAPA 1
-    describe("esVersatil"){
+    describe("esVersatil"){ //que tenga al menos tres certificaciones, que tenga al menos una sobre productos, y al menos una que no sea sobre productos.
+      vendedorFijo.agregarCertificacion(certificacionProducto)
+      vendedorFijo.agregarCertificacion(certificacionNoProducto)
+      vendedorFijo.agregarCertificacion(certificacionNoProducto)
+      
       it("tiene al menos 1 certificacion de productos, otra que no es de productos, y otra mas"){
-        viajante.esVersatil().shouldBeTrue()
+        vendedorFijo.esVersatil().shouldBeTrue()
       }
-    } //que tenga al menos tres certificaciones, que tenga al menos una sobre productos, y al menos una que no sea sobre productos.
+      it("No tiene certificaciones"){
+        vendedorFijo.esVersatil().shouldBeFalse()
+      }
+    }
 
     //ETAPA 1
-    describe("esFirme"){
+    describe("esFirme"){//La condición es que el puntaje total que le otorgan sus certificaciones sea mayor o igual a 30.
+      vendedorFijo.agregarCertificacion(certificacionProducto)
+      vendedorFijo.agregarCertificacion(certificacionProducto)
+      vendedorFijo.agregarCertificacion(certificacionNoProducto)
+      vendedorFijo.agregarCertificacion(certificacionNoProducto)
       it("tiene un puntaje en certificaciones igual o mayor a 30"){
-        viajante.esFirme().shouldBeFalse()
+        vendedorFijo.esFirme().shouldBeTrue()
       }
-    } //La condición es que el puntaje total que le otorgan sus certificaciones sea mayor o igual a 30.
+      it("No tiene un puntaje en certificaciones igual o mayor a 30"){
+        vendedorFijo.esFirme().shouldBeFalse()
+      }
+    }
     
     //ETAPA 2
     describe("esInfluyente") {
