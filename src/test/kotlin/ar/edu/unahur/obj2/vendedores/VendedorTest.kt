@@ -10,11 +10,16 @@ class VendedorTest : DescribeSpec({
   val ohio = Provincia(11690000)
   val sanIgnacio = Ciudad(misiones)
   val rio = Ciudad(rioDeJaneiro)
+  
+  val certificacionProducto = Certificacion(true, 10)
+  val certificacionNoProducto = Certificacion(false, 8)
 
+  
   describe("Vendedor Fijo") {
     val obera = Ciudad(misiones)
     val vendedorFijo = VendedorFijo(obera)
 
+    //ETAPA 1
     describe("puedeTrabajar") {
       it("puedeTrabajar en su ciudad de origen") {
         vendedorFijo.puedeTrabajarEn(obera).shouldBeTrue()
@@ -23,12 +28,45 @@ class VendedorTest : DescribeSpec({
         vendedorFijo.puedeTrabajarEn(sanIgnacio).shouldBeFalse()
       }
     }
-    describe("esInfluyente") {
+    
+    //ETAPA 1
+    describe("esVersatil"){
+      vendedorFijo.agregarCertificacion(certificacionProducto) //Hacer lo mismo pero con los demas tipos de vendedores
+      vendedorFijo.agregarCertificacion(certificacionNoProducto)
+      vendedorFijo.agregarCertificacion(certificacionNoProducto)
+      
+      it("tiene al menos 1 certificacion de productos, otra que no es de productos, y otra mas"){
+        vendedorFijo.esVersatil().shouldBeTrue()
+      }
+      it("No tiene certificaciones"){
+        vendedorFijo.esVersatil().shouldBeFalse()
+      }
+    } //que tenga al menos tres certificaciones, que tenga al menos una sobre productos, y al menos una que no sea sobre productos.
+
+    //ETAPA 1
+    describe("esFirme"){
+      vendedorFijo.agregarCertificacion(certificacionProducto)//Hacer lo mismo pero con los demas tipos de vendedores
+      vendedorFijo.agregarCertificacion(certificacionProducto)
+      vendedorFijo.agregarCertificacion(certificacionNoProducto)
+      vendedorFijo.agregarCertificacion(certificacionNoProducto)
+      it("tiene un puntaje en certificaciones igual o mayor a 30"){
+        vendedorFijo.esFirme().shouldBeTrue()
+      }
+      it("No tiene un puntaje en certificaciones igual o mayor a 30"){
+        vendedorFijo.esFirme().shouldBeFalse()
+      }
+     
+    } //La condición es que el puntaje total que le otorgan sus certificaciones sea mayor o igual a 30.
+    
+    //ETAPA 2
+    describe("esInfluyente") { //Hacer lo mismo pero con los demas tipos de vendedores
       it("No es influyente") {
         vendedorFijo.esInfluyente().shouldBeFalse()
       }
     }
-  }
+    
+    //ETAPA 3 - Pendiente
+    
 
   describe("Viajante") {
     val cordoba = Provincia(2000000)
@@ -36,7 +74,8 @@ class VendedorTest : DescribeSpec({
     val viajante = Viajante(listOf(misiones))
 
     val viajanteBrasilero = Viajante(listOf(rioDeJaneiro))
-
+    
+    //ETAPA 1
     describe("puedeTrabajarEn") {
       it("una ciudad que pertenece a una provincia habilitada") {
         viajante.puedeTrabajarEn(sanIgnacio).shouldBeTrue()
@@ -45,6 +84,21 @@ class VendedorTest : DescribeSpec({
         viajante.puedeTrabajarEn(villaDolores).shouldBeFalse()
       }
     }
+    //ETAPA 1
+    describe("esVersatil"){
+      it("tiene al menos 1 certificacion de productos, otra que no es de productos, y otra mas"){
+        viajante.esVersatil().shouldBeTrue()
+      }
+    } //que tenga al menos tres certificaciones, que tenga al menos una sobre productos, y al menos una que no sea sobre productos.
+    
+    //ETAPA 1
+    describe("esFirme"){
+      it("tiene un puntaje en certificaciones igual o mayor a 30"){
+        viajante.esFirme().shouldBeFalse()
+      }
+    } //La condición es que el puntaje total que le otorgan sus certificaciones sea mayor o igual a 30.
+    
+    //ETAPA 2
     describe("esInfluyente") {
       it("La poblacion debe ser >= a 10.000.000") {
         viajanteBrasilero.esInfluyente().shouldBeTrue()
@@ -65,6 +119,7 @@ class VendedorTest : DescribeSpec({
     val comercioCorresponsal2 = ComercioCorresponsal(listOf(sanIgnacio, torcuato, castelar))
     val comercioCorresponsal3 = ComercioCorresponsal(listOf(sanIgnacio, caballito, torcuato))
 
+    //ETAPA 1
     describe("puedeTrabajarEn") {
       it("Una ciudad que pertenece a las ciudades habilitadas") {
         comercioCorresponsal.puedeTrabajarEn(sanIgnacio).shouldBeTrue()
@@ -73,6 +128,21 @@ class VendedorTest : DescribeSpec({
         comercioCorresponsal.puedeTrabajarEn(caballito).shouldBeFalse()
       }
     }
+    //ETAPA 1
+    describe("esVersatil"){
+      it("tiene al menos 1 certificacion de productos, otra que no es de productos, y otra mas"){
+        viajante.esVersatil().shouldBeTrue()
+      }
+    } //que tenga al menos tres certificaciones, que tenga al menos una sobre productos, y al menos una que no sea sobre productos.
+
+    //ETAPA 1
+    describe("esFirme"){
+      it("tiene un puntaje en certificaciones igual o mayor a 30"){
+        viajante.esFirme().shouldBeFalse()
+      }
+    } //La condición es que el puntaje total que le otorgan sus certificaciones sea mayor o igual a 30.
+    
+    //ETAPA 2
     describe("esInfluyente") {
       it("Tiene 5 o mas sucursales") {
         comercioCorresponsal.esInfluyente().shouldBeTrue()
