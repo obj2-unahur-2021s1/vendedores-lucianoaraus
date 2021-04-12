@@ -5,22 +5,29 @@ import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
 
 class VendedorTest : DescribeSpec({
+
+  //Provincias
   val misiones = Provincia(1300000)
   val rioDeJaneiro = Provincia(10000000)
   val ohio = Provincia(11690000)
+  //Ciudades
   val sanIgnacio = Ciudad(misiones)
   val rio = Ciudad(rioDeJaneiro)
-  
+
+  //Certificados
   val certificacionProducto = Certificacion(true, 10)
   val certificacionNoProducto = Certificacion(false, 8)
 
   
   describe("Vendedor Fijo") {
+    //Ciudad
     val obera = Ciudad(misiones)
+    //Vendedores
     val vendedorFijo = VendedorFijo(obera)
+    val vendedorFijo2 = VendedorFijo(obera)
 
     //ETAPA 1
-    describe("puedeTrabajar") {
+    describe("Puede trabajar") {
       it("puedeTrabajar en su ciudad de origen") {
         vendedorFijo.puedeTrabajarEn(obera).shouldBeTrue()
       }
@@ -28,45 +35,45 @@ class VendedorTest : DescribeSpec({
         vendedorFijo.puedeTrabajarEn(sanIgnacio).shouldBeFalse()
       }
     }
-    
-    //ETAPA 1
-    describe("esVersatil"){
-      vendedorFijo.agregarCertificacion(certificacionProducto) //Hacer lo mismo pero con los demas tipos de vendedores
-      vendedorFijo.agregarCertificacion(certificacionNoProducto)
-      vendedorFijo.agregarCertificacion(certificacionNoProducto)
-      
-      it("tiene al menos 1 certificacion de productos, otra que no es de productos, y otra mas"){
-        vendedorFijo.esVersatil().shouldBeTrue()
-      }
-      it("No tiene certificaciones"){
-        vendedorFijo.esVersatil().shouldBeFalse()
-      }
-    } //que tenga al menos tres certificaciones, que tenga al menos una sobre productos, y al menos una que no sea sobre productos.
 
     //ETAPA 1
-    describe("esFirme"){
-      vendedorFijo.agregarCertificacion(certificacionProducto)//Hacer lo mismo pero con los demas tipos de vendedores
+    describe("Es versatil") {
       vendedorFijo.agregarCertificacion(certificacionProducto)
       vendedorFijo.agregarCertificacion(certificacionNoProducto)
       vendedorFijo.agregarCertificacion(certificacionNoProducto)
-      it("tiene un puntaje en certificaciones igual o mayor a 30"){
+
+      it("tiene al menos 1 certificacion de productos, otra que no es de productos, y otra mas") {
+        vendedorFijo.esVersatil().shouldBeTrue()
+      }
+      it("No tiene certificaciones") {
+        vendedorFijo2.esVersatil().shouldBeFalse()
+      }
+    }
+
+    //ETAPA 1
+    describe("Es firme") {
+      vendedorFijo.agregarCertificacion(certificacionProducto)
+      vendedorFijo.agregarCertificacion(certificacionProducto)
+      vendedorFijo.agregarCertificacion(certificacionNoProducto)
+      vendedorFijo.agregarCertificacion(certificacionNoProducto)
+      it("tiene un puntaje en certificaciones igual o mayor a 30") {
         vendedorFijo.esFirme().shouldBeTrue()
       }
-      it("No tiene un puntaje en certificaciones igual o mayor a 30"){
-        vendedorFijo.esFirme().shouldBeFalse()
+      it("No tiene un puntaje en certificaciones igual o mayor a 30") {
+        vendedorFijo2.esFirme().shouldBeFalse()
       }
-     
-    } //La condición es que el puntaje total que le otorgan sus certificaciones sea mayor o igual a 30.
-    
+    }
+
     //ETAPA 2
-    describe("esInfluyente") { //Hacer lo mismo pero con los demas tipos de vendedores
+    describe("Es influyente") {
       it("No es influyente") {
         vendedorFijo.esInfluyente().shouldBeFalse()
       }
     }
-    
-    //ETAPA 3 - Pendiente
-    
+  }
+
+  //ETAPA 3 - Pendiente
+
 
   describe("Viajante") {
     val cordoba = Provincia(2000000)
@@ -74,9 +81,9 @@ class VendedorTest : DescribeSpec({
     val viajante = Viajante(listOf(misiones))
 
     val viajanteBrasilero = Viajante(listOf(rioDeJaneiro))
-    
+
     //ETAPA 1
-    describe("puedeTrabajarEn") {
+    describe("Puede trabajar en") {
       it("una ciudad que pertenece a una provincia habilitada") {
         viajante.puedeTrabajarEn(sanIgnacio).shouldBeTrue()
       }
@@ -85,35 +92,35 @@ class VendedorTest : DescribeSpec({
       }
     }
     //ETAPA 1
-    describe("esVersatil"){ //que tenga al menos tres certificaciones, que tenga al menos una sobre productos, y al menos una que no sea sobre productos.
-      vendedorFijo.agregarCertificacion(certificacionProducto)
-      vendedorFijo.agregarCertificacion(certificacionNoProducto)
-      vendedorFijo.agregarCertificacion(certificacionNoProducto)
-      
-      it("tiene al menos 1 certificacion de productos, otra que no es de productos, y otra mas"){
-        vendedorFijo.esVersatil().shouldBeTrue()
+    describe("Es versatil") {
+      viajante.agregarCertificacion(certificacionProducto)
+      viajante.agregarCertificacion(certificacionNoProducto)
+      viajante.agregarCertificacion(certificacionNoProducto)
+
+      it("tiene al menos 1 certificacion de productos, otra que no es de productos, y otra mas") {
+        viajante.esVersatil().shouldBeTrue()
       }
-      it("No tiene certificaciones"){
-        vendedorFijo.esVersatil().shouldBeFalse()
+      it("No tiene certificaciones") {
+        viajante.esVersatil().shouldBeFalse()
       }
     }
 
     //ETAPA 1
-    describe("esFirme"){//La condición es que el puntaje total que le otorgan sus certificaciones sea mayor o igual a 30.
-      vendedorFijo.agregarCertificacion(certificacionProducto)
-      vendedorFijo.agregarCertificacion(certificacionProducto)
-      vendedorFijo.agregarCertificacion(certificacionNoProducto)
-      vendedorFijo.agregarCertificacion(certificacionNoProducto)
-      it("tiene un puntaje en certificaciones igual o mayor a 30"){
-        vendedorFijo.esFirme().shouldBeTrue()
+    describe("Es firme") {
+      viajante.agregarCertificacion(certificacionProducto)
+      viajante.agregarCertificacion(certificacionProducto)
+      viajante.agregarCertificacion(certificacionNoProducto)
+      viajante.agregarCertificacion(certificacionNoProducto)
+      it("tiene un puntaje en certificaciones igual o mayor a 30") {
+        viajante.esFirme().shouldBeTrue()
       }
-      it("No tiene un puntaje en certificaciones igual o mayor a 30"){
-        vendedorFijo.esFirme().shouldBeFalse()
+      it("No tiene un puntaje en certificaciones igual o mayor a 30") {
+        viajante.esFirme().shouldBeFalse()
       }
-     
-    } 
+
+    }
     //ETAPA 2
-    describe("esInfluyente") {
+    describe("Es influyente") {
       it("La poblacion debe ser >= a 10.000.000") {
         viajanteBrasilero.esInfluyente().shouldBeTrue()
       }
@@ -124,17 +131,20 @@ class VendedorTest : DescribeSpec({
   }
 
   describe("Comercio Corresponsal") {
+    //Provincia
     val buenosAires = Provincia(1500000)
+    //Ciudades
     val caballito = Ciudad(buenosAires)
     val torcuato = Ciudad(rioDeJaneiro)
     val castelar = Ciudad(ohio)
     val moron = Ciudad(buenosAires)
+    //Comercios
     val comercioCorresponsal = ComercioCorresponsal(listOf(sanIgnacio, caballito, torcuato, castelar, moron))
     val comercioCorresponsal2 = ComercioCorresponsal(listOf(sanIgnacio, torcuato, castelar))
     val comercioCorresponsal3 = ComercioCorresponsal(listOf(sanIgnacio, caballito, torcuato))
 
     //ETAPA 1
-    describe("puedeTrabajarEn") {
+    describe("Puede trabajar en") {
       it("Una ciudad que pertenece a las ciudades habilitadas") {
         comercioCorresponsal.puedeTrabajarEn(sanIgnacio).shouldBeTrue()
       }
@@ -143,35 +153,35 @@ class VendedorTest : DescribeSpec({
       }
     }
     //ETAPA 1
-    describe("esVersatil"){ //que tenga al menos tres certificaciones, que tenga al menos una sobre productos, y al menos una que no sea sobre productos.
-      vendedorFijo.agregarCertificacion(certificacionProducto)
-      vendedorFijo.agregarCertificacion(certificacionNoProducto)
-      vendedorFijo.agregarCertificacion(certificacionNoProducto)
-      
-      it("tiene al menos 1 certificacion de productos, otra que no es de productos, y otra mas"){
-        vendedorFijo.esVersatil().shouldBeTrue()
+    describe("Es versatil") {
+      comercioCorresponsal.agregarCertificacion(certificacionProducto)
+      comercioCorresponsal.agregarCertificacion(certificacionNoProducto)
+      comercioCorresponsal.agregarCertificacion(certificacionNoProducto)
+
+      it("tiene al menos 1 certificacion de productos, otra que no es de productos, y otra mas") {
+        comercioCorresponsal.esVersatil().shouldBeTrue()
       }
-      it("No tiene certificaciones"){
-        vendedorFijo.esVersatil().shouldBeFalse()
+      it("No tiene certificaciones") {
+        comercioCorresponsal.esVersatil().shouldBeFalse()
       }
     }
 
     //ETAPA 1
-    describe("esFirme"){//La condición es que el puntaje total que le otorgan sus certificaciones sea mayor o igual a 30.
-      vendedorFijo.agregarCertificacion(certificacionProducto)
-      vendedorFijo.agregarCertificacion(certificacionProducto)
-      vendedorFijo.agregarCertificacion(certificacionNoProducto)
-      vendedorFijo.agregarCertificacion(certificacionNoProducto)
-      it("tiene un puntaje en certificaciones igual o mayor a 30"){
-        vendedorFijo.esFirme().shouldBeTrue()
+    describe("Es firme") {
+      comercioCorresponsal.agregarCertificacion(certificacionProducto)
+      comercioCorresponsal.agregarCertificacion(certificacionProducto)
+      comercioCorresponsal.agregarCertificacion(certificacionNoProducto)
+      comercioCorresponsal.agregarCertificacion(certificacionNoProducto)
+      it("tiene un puntaje en certificaciones igual o mayor a 30") {
+        comercioCorresponsal.esFirme().shouldBeTrue()
       }
-      it("No tiene un puntaje en certificaciones igual o mayor a 30"){
-        vendedorFijo.esFirme().shouldBeFalse()
+      it("No tiene un puntaje en certificaciones igual o mayor a 30") {
+        comercioCorresponsal.esFirme().shouldBeFalse()
       }
     }
-    
+
     //ETAPA 2
-    describe("esInfluyente") {
+    describe("Es influyente") {
       it("Tiene 5 o mas sucursales") {
         comercioCorresponsal.esInfluyente().shouldBeTrue()
       }
@@ -185,26 +195,4 @@ class VendedorTest : DescribeSpec({
   }
 })
 
-/*Estructura del test
-class MyTests : DescribeSpec({
-  describe("score") {
-    it("start as zero") {
-      // test here
-    }
-    describe("with a strike") {
-      it("adds ten") {
-        // test here
-      }
-      it("carries strike to the next frame") {
-        // test here
-      }
-    }
-
-    describe("for the opposite team") {
-      it("Should negate one score") {
-        // test here
-      }
-    }
-  }
-})*/
 
