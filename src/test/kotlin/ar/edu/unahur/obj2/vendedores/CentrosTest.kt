@@ -41,9 +41,12 @@ class CentrosDistribucionTest : DescribeSpec({
         vendedor1.agregarCertificacion(certificacionProducto)
         // Vendedor 2
         vendedor2.agregarCertificacion(certificacionProducto)
+        vendedor2.agregarCertificacion(certificacionProducto)
         vendedor2.agregarCertificacion(certificacionNoProducto)
 
         // Vendedor 3
+        vendedor3.agregarCertificacion(certificacionProducto)
+        vendedor3.agregarCertificacion(certificacionProducto)
         vendedor3.agregarCertificacion(certificacionProducto)
 
         // Centro Distribucion 1
@@ -72,7 +75,7 @@ class CentrosDistribucionTest : DescribeSpec({
             centroDistribucion1.puedeCubrir(sanIgnacio).shouldBeTrue()
         }
         it("el vendedor NO puede cubrir la ciudad dada") {
-            centroDistribucion1.puedeCubrir(rio).shouldBeFalse()
+            centroDistribucion3.puedeCubrir(rio).shouldBeFalse()
         }
     }
 
@@ -92,7 +95,7 @@ class CentrosDistribucionTest : DescribeSpec({
             centroDistribucion1.esRobusto().shouldBeTrue()
         }
         it("no hay 3 vendedores firmes") {
-            centroDistribucion2.esRobusto().shouldBeFalse()
+            centroDistribucion3.esRobusto().shouldBeFalse()
         }
     }
 })

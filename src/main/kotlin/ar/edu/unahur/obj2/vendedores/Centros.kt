@@ -6,17 +6,17 @@ class CentroDistribucion(val ciudad: Ciudad){
     val vendedores = mutableListOf<Vendedor>()
 
     //lo que hace el check es tirar el error si no se cumple la condición
-    fun agregarVendedor(vendedor: Vendedor){ //No devuelve nada
-        check(vendedores.contains(vendedor)){ "El vendedor ya esta registrado" }
-        vendedores.add(vendedor)//Si no esta registrado -> agrega al vendedor
-    }
-    /*ALTERNATIVA:
+    /*fun agregarVendedor(vendedor: Vendedor){ //No devuelve nada
+        check(vendedores.contains(vendedor)){ vendedores.add(vendedor) } //Si no esta registrado -> agrega al vendedor
+        "El vendedor ya esta registrado"
+    }*/
+    //ALTERNATIVA:
     fun agregarVendedor(vendedor: Vendedor){ //No devuelve nada
         if(vendedores.contains(vendedor)){
             throw Exception("El vendedor ya esta registrado") }
             else { vendedores.add(vendedor) }
         //Si no esta registrado -> agrega al vendedor
-    }*/
+    }//*/
 
     // ETAPA 3
     fun vendedorEstrella() = vendedores.maxBy { it.puntajeCertificaciones() } //Devuelve el vendedor con maximo puntaje en 'Certificaciones'.

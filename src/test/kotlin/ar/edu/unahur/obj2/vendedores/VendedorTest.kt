@@ -101,7 +101,7 @@ class VendedorTest : DescribeSpec({
         viajante.esVersatil().shouldBeTrue()
       }
       it("No tiene certificaciones") {
-        viajante.esVersatil().shouldBeFalse()
+        viajanteBrasilero.esVersatil().shouldBeFalse()
       }
     }
 
@@ -115,7 +115,7 @@ class VendedorTest : DescribeSpec({
         viajante.esFirme().shouldBeTrue()
       }
       it("No tiene un puntaje en certificaciones igual o mayor a 30") {
-        viajante.esFirme().shouldBeFalse()
+        viajanteBrasilero.esFirme().shouldBeFalse()
       }
 
     }
@@ -124,7 +124,7 @@ class VendedorTest : DescribeSpec({
       it("La poblacion debe ser >= a 10.000.000") {
         viajanteBrasilero.esInfluyente().shouldBeTrue()
       }
-      it("La poblacion debe ser >= a 10.000.000") {
+      it("La poblacion NO debe superer los 10.000.000 habitantes") {
         viajante.esInfluyente().shouldBeFalse()
       }
     }
@@ -141,7 +141,7 @@ class VendedorTest : DescribeSpec({
     //Comercios
     val comercioCorresponsal = ComercioCorresponsal(listOf(sanIgnacio, caballito, torcuato, castelar, moron))
     val comercioCorresponsal2 = ComercioCorresponsal(listOf(sanIgnacio, torcuato, castelar))
-    val comercioCorresponsal3 = ComercioCorresponsal(listOf(sanIgnacio, caballito, torcuato))
+    val comercioCorresponsal3 = ComercioCorresponsal(listOf(sanIgnacio, caballito))
 
     //ETAPA 1
     describe("Puede trabajar en") {
@@ -149,7 +149,7 @@ class VendedorTest : DescribeSpec({
         comercioCorresponsal.puedeTrabajarEn(sanIgnacio).shouldBeTrue()
       }
       it("Una ciudad que NO pertenece a las ciudades habilitadas") {
-        comercioCorresponsal.puedeTrabajarEn(caballito).shouldBeFalse()
+        comercioCorresponsal2.puedeTrabajarEn(caballito).shouldBeFalse()
       }
     }
     //ETAPA 1
@@ -162,7 +162,7 @@ class VendedorTest : DescribeSpec({
         comercioCorresponsal.esVersatil().shouldBeTrue()
       }
       it("No tiene certificaciones") {
-        comercioCorresponsal.esVersatil().shouldBeFalse()
+        comercioCorresponsal2.esVersatil().shouldBeFalse()
       }
     }
 
@@ -176,7 +176,7 @@ class VendedorTest : DescribeSpec({
         comercioCorresponsal.esFirme().shouldBeTrue()
       }
       it("No tiene un puntaje en certificaciones igual o mayor a 30") {
-        comercioCorresponsal.esFirme().shouldBeFalse()
+        comercioCorresponsal2.esFirme().shouldBeFalse()
       }
     }
 
