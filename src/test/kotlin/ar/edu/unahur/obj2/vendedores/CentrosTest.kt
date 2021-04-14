@@ -72,7 +72,7 @@ class CentrosDistribucionTest : DescribeSpec({
             centroDistribucion1.puedeCubrir(sanIgnacio).shouldBeTrue()
         }
         it("el vendedor NO puede cubrir la ciudad dada") {
-            centroDistribucion1.puedeCubrir(rio).shouldBeTrue()
+            centroDistribucion1.puedeCubrir(rio).shouldBeFalse()
         }
     }
 
